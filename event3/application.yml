@@ -1,0 +1,29 @@
+proxy:
+  title: Adverse Event Table
+  landing page: / 
+  port: 8080
+  authentication: simple
+  admin-groups: admins
+  users:
+  - name: admin
+    password: p1000
+    groups: admins
+  - name: user1
+    password: p1002
+    groups: programming
+  - name: user2
+    password: p1002
+    groups: programming
+  docker:
+      internal-networking: true
+  specs:
+  - id: ae
+    display-name: AE Tables
+    container-cmd: ["R", "-e", "shiny::runApp('/root/ae')"]
+    container-image: shiny-event-app
+    access-groups: [admins, programming]
+    container-network: sp-example-net
+
+logging:
+  file:
+    shinyproxy.log
