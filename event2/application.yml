@@ -1,0 +1,22 @@
+proxy:
+  title: Standalone Docker Engine with ae Example
+  port: 8080
+  authentication: simple
+  admin-groups: admins
+  users:
+  - name: admin
+    password: p1001
+    groups: admins
+  docker:
+    url: http://localhost:2375
+  specs:
+  - id: ae
+    display-name: AE Tables
+    container-cmd: ["R", "-e", "shiny::runApp('/root/ae')"]
+    container-image: shiny-event-app 
+    port: 3838
+    access-groups: admins
+
+logging:
+  file:
+    shinyproxy.log
